@@ -1,5 +1,6 @@
 package com.endava.books.endavabooks.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,5 +18,6 @@ public class Publisher {
     private String brand;
 
     @OneToMany
+    @JsonIgnore
     private List<Book> publishedBooks;
 }
