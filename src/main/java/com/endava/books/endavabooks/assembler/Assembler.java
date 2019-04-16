@@ -7,11 +7,11 @@ public interface Assembler<ENTITY, DTO> {
 
     ENTITY toEntity(DTO dto);
     default List<ENTITY> toEntities(List<DTO> dtos) {
-        return dtos.parallelStream().map(this::toEntity).collect(Collectors.toList());
+        return dtos.stream().map(this::toEntity).collect(Collectors.toList());
     }
 
     DTO toDto(ENTITY entity);
     default List<DTO> toDtos(List<ENTITY> entities) {
-        return entities.parallelStream().map(this::toDto).collect(Collectors.toList());
+        return entities.stream().map(this::toDto).collect(Collectors.toList());
     }
 }

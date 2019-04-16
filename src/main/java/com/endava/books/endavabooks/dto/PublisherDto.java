@@ -1,5 +1,10 @@
 package com.endava.books.endavabooks.dto;
 
-public class PublisherDto {
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+public class PublisherDto {
+    private String brand;
 }

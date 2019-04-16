@@ -18,6 +18,7 @@ public class BookAssemblerImpl implements BookAssembler {
         book.setISBN(bookDto.getISBN());
         book.setName(bookDto.getName());
         book.setLanguage(bookDto.getLanguage());
+        book.setUrlImage(bookDto.getUrlImage());
         return book;
     }
 
@@ -27,6 +28,7 @@ public class BookAssemblerImpl implements BookAssembler {
         bookDto.setName(book.getName());
         bookDto.setISBN(book.getISBN());
         bookDto.setLanguage(book.getLanguage());
+        bookDto.setUrlImage(book.getUrlImage());
 
         Optional<Author> authorOptional = Optional.ofNullable(book.getAuthor());
         Optional<Publisher> publisherOptional = Optional.ofNullable(book.getPublisher());

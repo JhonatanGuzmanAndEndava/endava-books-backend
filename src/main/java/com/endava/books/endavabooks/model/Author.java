@@ -18,7 +18,9 @@ public class Author {
     private Long id;
     private String name;
     private String lastName;
+    private String nickname;
     private LocalDate birthday;
+    private String picture;
 
     @OneToMany
     @JsonIgnore

@@ -21,6 +21,7 @@ public class Book {
     @JoinColumn
     private Author author;
     private String language;
+    private String urlImage;
 
     @ManyToOne
     @JoinColumn
