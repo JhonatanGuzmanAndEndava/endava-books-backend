@@ -11,6 +11,7 @@ import com.endava.books.endavabooks.repository.PublisherRepository;
 import com.endava.books.endavabooks.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@Transactional
 public class BookServiceImpl implements BookService {
 
     private BookRepository bookRepository;
@@ -62,7 +64,10 @@ public class BookServiceImpl implements BookService {
         publisherOptional = publisherRepository.findById(bookDto.getPublisherId());
 
         authorOptional.ifPresent(bookToSave::setAuthor);
+        authorOptional.ifPresent(a -> a.getWrittenBooks().add(bookToSave));
+
         publisherOptional.ifPresent(bookToSave::setPublisher);
+        publisherOptional.ifPresent(p -> p.getPublishedBooks().add(bookToSave));
         return bookAssembler.toDto(bookRepository.save(bookToSave));
     }
 

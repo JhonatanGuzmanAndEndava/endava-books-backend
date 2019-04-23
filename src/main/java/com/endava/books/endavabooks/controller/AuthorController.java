@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/v1/author")
@@ -20,9 +21,11 @@ public class AuthorController {
     }
 
     @GetMapping
-    public ResponseEntity<AuthorDto> getBook(@RequestParam(name = "id", required = false) Long authorId,
-                                             @RequestParam(name = "name", required = false) String name) {
-        return null;
+    public ResponseEntity<AuthorDto> getAuthor(@RequestParam(name = "id", required = false) Long authorId,
+                                               @RequestParam(name = "name", required = false) String name) {
+        if(!(Optional.ofNullable(name).isPresent()))
+            return authorService.getAuthor(authorId).map(ResponseEntity::ok).get();
+        return authorService.getAuthorByNick(name).map(ResponseEntity::ok).get();
     }
 
     @GetMapping(path = "/all")
@@ -32,7 +35,7 @@ public class AuthorController {
 
     @PostMapping(path = "/add")
     public ResponseEntity<AuthorDto> saveAuthor(@RequestBody AuthorDto authorDto) {
-        return null;
+        return ResponseEntity.ok(authorService.saveNewAuthor(authorDto));
     }
 
     @PutMapping(path = "/update")

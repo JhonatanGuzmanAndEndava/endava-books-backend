@@ -5,16 +5,32 @@ import com.endava.books.endavabooks.dto.AuthorDto;
 import com.endava.books.endavabooks.model.Author;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class AuthorAssemblerImpl implements AuthorAssembler {
 
     @Override
     public Author toEntity(AuthorDto authorDto) {
-        return null;
+        //missing id
+        Author author = new Author();
+        author.setName(authorDto.getName());
+        author.setLastName(authorDto.getLastName());
+        author.setNickname(authorDto.getNickname());
+        author.setBirthday(authorDto.getBirthday());
+        author.setPicture(authorDto.getPicture());
+        author.setWrittenBooks(new ArrayList<>());
+        return author;
     }
 
     @Override
     public AuthorDto toDto(Author author) {
-        return null;
+        AuthorDto authorDto = new AuthorDto();
+        authorDto.setName(author.getName());
+        authorDto.setLastName(author.getLastName());
+        authorDto.setNickname(author.getNickname());
+        authorDto.setBirthday(author.getBirthday());
+        authorDto.setPicture(author.getPicture());
+        return authorDto;
     }
 }
