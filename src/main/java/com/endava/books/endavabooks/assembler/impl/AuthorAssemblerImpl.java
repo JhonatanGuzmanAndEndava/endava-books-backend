@@ -6,6 +6,7 @@ import com.endava.books.endavabooks.model.Author;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @Component
 public class AuthorAssemblerImpl implements AuthorAssembler {
@@ -19,7 +20,7 @@ public class AuthorAssemblerImpl implements AuthorAssembler {
         author.setNickname(authorDto.getNickname());
         author.setBirthday(authorDto.getBirthday());
         author.setPicture(authorDto.getPicture());
-        author.setWrittenBooks(new ArrayList<>());
+        author.setWrittenBooks(new HashSet<>());
         return author;
     }
 

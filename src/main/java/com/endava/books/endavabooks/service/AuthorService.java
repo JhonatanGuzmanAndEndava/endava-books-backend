@@ -5,6 +5,7 @@ import com.endava.books.endavabooks.dto.BookDto;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface AuthorService {
 
@@ -16,11 +17,11 @@ public interface AuthorService {
 
     List<AuthorDto> getAuthors();
 
-    List<BookDto> getBooksFromAuthor(Long authorId);
+    Set<BookDto> getBooksFromAuthor(Long authorId);
 
     AuthorDto saveNewAuthor(AuthorDto authorDto);
 
-    AuthorDto updateAuthor(AuthorDto authorDto);
+    AuthorDto updateAuthor(Long authorId, AuthorDto authorDto);
 
     void deleteAuthor(Long authorId);
 }

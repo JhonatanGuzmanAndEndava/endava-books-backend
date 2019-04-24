@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -36,21 +39,26 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Optional<AuthorDto> getAuthorByName(String authorName) {
-        return Optional.empty();
+        //TODO Regex
+        return authorRepository.findByName(authorName).map(authorAssembler::toDto);
     }
 
     @Override
     public Optional<AuthorDto> getAuthorByNick(String authorNick) {
-        return Optional.empty();
+        //TODO Regex
+        return authorRepository.findByNickname(authorNick).map(authorAssembler::toDto);
     }
 
     @Override
     public List<AuthorDto> getAuthors() {
-        return null;
+        return StreamSupport
+                .stream(authorRepository.findAll().spliterator(), false)
+                .map(authorAssembler::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<BookDto> getBooksFromAuthor(Long authorId) {
+    public Set<BookDto> getBooksFromAuthor(Long authorId) {
         return getOptionalAuthor(authorId).map(a -> bookAssembler.toDtos(a.getWrittenBooks())).get();
     }
 
@@ -62,13 +70,22 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorDto updateAuthor(AuthorDto authorDto) {
-        return null;
+    public AuthorDto updateAuthor(Long authorId, AuthorDto authorDto) {
+        Optional<Author> possibleAuthor = getOptionalAuthor(authorId);
+        if(possibleAuthor.isPresent()) {
+            possibleAuthor.get().setName(authorDto.getName());
+            possibleAuthor.get().setLastName(authorDto.getLastName());
+            possibleAuthor.get().setNickname(authorDto.getNickname());
+            possibleAuthor.get().setPicture(authorDto.getPicture());
+            possibleAuthor.get().setBirthday(authorDto.getBirthday());
+            return authorAssembler.toDto(authorRepository.save(possibleAuthor.get()));
+        }else
+            throw new IllegalArgumentException("Author id does not exist");
     }
 
     @Override
     public void deleteAuthor(Long authorId) {
-
+        authorRepository.deleteById(authorId);
     }
 
     private Optional<Author> getOptionalAuthor(Long authorId) {

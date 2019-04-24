@@ -1,6 +1,7 @@
 package com.endava.books.endavabooks.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -21,6 +22,7 @@ public class Book {
     @ManyToOne
     @JoinColumn
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Author author;
     private String language;
     private String urlImage;
@@ -28,6 +30,7 @@ public class Book {
     @ManyToOne
     @JoinColumn
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Publisher publisher;
 
 }

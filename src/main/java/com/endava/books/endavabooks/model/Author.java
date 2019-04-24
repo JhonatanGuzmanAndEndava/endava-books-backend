@@ -2,11 +2,12 @@ package com.endava.books.endavabooks.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -24,6 +25,7 @@ public class Author {
 
     @OneToMany
     @JsonIgnore
-    private List<Book> writtenBooks;
+    @EqualsAndHashCode.Exclude
+    private Set<Book> writtenBooks;
 
 }

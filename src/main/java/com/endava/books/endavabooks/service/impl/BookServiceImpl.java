@@ -97,6 +97,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto updateAuthor(String ISBN, Long authorId) {
+        //TODO Fix bug to change author
         Optional<Book> possibleBook = bookRepository.findById(ISBN);
         Optional<Author> possibleAuthor = authorRepository.findById(authorId);
 

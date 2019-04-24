@@ -30,7 +30,7 @@ public class AuthorController {
 
     @GetMapping(path = "/all")
     public ResponseEntity<List<AuthorDto>> getAllAuthors() {
-        return null;
+        return ResponseEntity.ok(authorService.getAuthors());
     }
 
     @PostMapping(path = "/add")
@@ -39,12 +39,12 @@ public class AuthorController {
     }
 
     @PutMapping(path = "/update")
-    public ResponseEntity<AuthorDto> updateAuthor(@RequestBody AuthorDto authorDto) {
-        return null;
+    public ResponseEntity<AuthorDto> updateAuthor(@RequestParam(name = "id") Long authorId, @RequestBody AuthorDto authorDto) {
+        return ResponseEntity.ok(authorService.updateAuthor(authorId, authorDto));
     }
 
     @DeleteMapping(path = "/delete")
     public void deleteAuthor(@RequestParam(name = "id") Long authorId) {
-
+        authorService.deleteAuthor(authorId);
     }
 }
