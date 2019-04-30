@@ -97,13 +97,17 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto updateAuthor(String ISBN, Long authorId) {
-        //TODO Fix bug to change author
+        //Verify the parameters sent by user exits
         Optional<Book> possibleBook = bookRepository.findById(ISBN);
         Optional<Author> possibleAuthor = authorRepository.findById(authorId);
 
         if(possibleAuthor.isPresent() && possibleBook.isPresent()) {
-            possibleBook.get().setAuthor(possibleAuthor.get());
+            Optional<Author> previousAuthor = Optional.ofNullable(possibleBook.get().getAuthor());
+            previousAuthor.ifPresent(a -> a.getWrittenBooks().remove(possibleBook.get()));
+
             possibleAuthor.get().getWrittenBooks().add(possibleBook.get());
+            possibleBook.get().setAuthor(possibleAuthor.get());
+
             return bookAssembler.toDto(bookRepository.save(possibleBook.get()));
         }else
             throw new IllegalArgumentException("Book or author do not exist");
@@ -115,8 +119,8 @@ public class BookServiceImpl implements BookService {
         Optional<Publisher> possiblePublisher = publisherRepository.findById(publisherId);
 
         if(possiblePublisher.isPresent() && possibleBook.isPresent()) {
-            possibleBook.get().setPublisher(possiblePublisher.get());
             possiblePublisher.get().getPublishedBooks().add(possibleBook.get());
+            possibleBook.get().setPublisher(possiblePublisher.get());
             return bookAssembler.toDto(bookRepository.save(possibleBook.get()));
         }else
             throw new IllegalArgumentException("Book or publisher do not exist");

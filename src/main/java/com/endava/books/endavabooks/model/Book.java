@@ -20,7 +20,7 @@ public class Book {
     private String name;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "author_id_column")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Author author;
@@ -28,7 +28,7 @@ public class Book {
     private String urlImage;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "publisher_id_column")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Publisher publisher;
