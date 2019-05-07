@@ -18,7 +18,7 @@ public class Publisher {
     private Long id;
     private String brand;
 
-    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "publisher", cascade = CascadeType.PERSIST)
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     private Set<Book> publishedBooks;

@@ -23,7 +23,7 @@ public class Author {
     private LocalDate birthday;
     private String picture;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     private Set<Book> writtenBooks;

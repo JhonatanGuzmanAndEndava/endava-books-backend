@@ -85,6 +85,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void deleteAuthor(Long authorId) {
+        authorRepository.findById(authorId).ifPresent(a -> a.getWrittenBooks().forEach(b -> b.setAuthor(null)));
         authorRepository.deleteById(authorId);
     }
 
