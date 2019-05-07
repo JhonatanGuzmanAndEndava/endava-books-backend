@@ -39,9 +39,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public Optional<BookDto> getBook(String ISBN) {
         //TODO Only for testing - remove it later
-        //bookRepository.findById(ISBN).ifPresent(System.out::print);
-        //System.out.print(":");
-        //bookRepository.findById(ISBN).ifPresent(b -> System.out.println(b.getAuthor()));
+        bookRepository.findById(ISBN).ifPresent(System.out::print);
+        System.out.print(":");
+        bookRepository.findById(ISBN).ifPresent(b -> System.out.println(b.getAuthor()));
         return bookRepository.findById(ISBN).map(bookAssembler::toDto);
     }
 

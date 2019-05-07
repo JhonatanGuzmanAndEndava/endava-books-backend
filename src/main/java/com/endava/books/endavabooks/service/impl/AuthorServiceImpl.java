@@ -34,6 +34,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Optional<AuthorDto> getAuthor(Long authorId) {
+        //TODO Only for testing - remove it later
+        getOptionalAuthor(authorId).ifPresent(System.out::println);
         return getOptionalAuthor(authorId).map(authorAssembler::toDto);
     }
 
