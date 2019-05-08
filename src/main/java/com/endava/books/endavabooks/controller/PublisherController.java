@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/v1/publisher")
@@ -22,27 +23,29 @@ public class PublisherController {
     @GetMapping
     public ResponseEntity<PublisherDto> getPublisher(@RequestParam(name = "id", required = false) Long publisherId,
                                                      @RequestParam(name = "brand", required = false) String brand) {
-        return null;
+        if(!(Optional.ofNullable(brand).isPresent()))
+            return publisherService.getPublisher(publisherId).map(ResponseEntity::ok).get();
+        return publisherService.getPublisherByBrand(brand).map(ResponseEntity::ok).get();
     }
 
     @GetMapping(path = "/all")
     public ResponseEntity<List<PublisherDto>> getAllPublishers() {
-        return null;
+        return ResponseEntity.ok(publisherService.getPublishers());
     }
 
     @PostMapping(path = "/add")
     public ResponseEntity<PublisherDto> savePublisher(@RequestBody PublisherDto publisherDto) {
-        return null;
+        return ResponseEntity.ok(publisherService.saveNewPublisher(publisherDto));
     }
 
     @PutMapping(path = "/update")
-    public ResponseEntity<PublisherDto> updatePublisher(@RequestBody PublisherDto publisherDto) {
-        return null;
+    public ResponseEntity<PublisherDto> updatePublisher(@RequestParam(name = "id") Long publisherId, @RequestBody PublisherDto publisherDto) {
+        return ResponseEntity.ok(publisherService.updatePublisher(publisherId, publisherDto));
     }
 
     @DeleteMapping(path = "/delete")
     public void deletePublisher(@RequestParam(name = "id") Long publisherId) {
-
+        publisherService.deletePublisher(publisherId);
     }
 
 }

@@ -67,7 +67,6 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorDto saveNewAuthor(AuthorDto authorDto) {
         Author author = authorAssembler.toEntity(authorDto);
-        authorRepository.save(author);
         return authorAssembler.toDto(authorRepository.save(author));
     }
 

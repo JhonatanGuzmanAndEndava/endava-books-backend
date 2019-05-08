@@ -101,7 +101,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto updateAuthor(String ISBN, Long authorId) {
-        //Verify the parameters sent by user exits
+        //Verify the parameters sent by user exists in db
         Optional<Book> possibleBook = bookRepository.findById(ISBN);
         Optional<Author> possibleAuthor = authorRepository.findById(authorId);
 
@@ -123,6 +123,7 @@ public class BookServiceImpl implements BookService {
         Optional<Publisher> possiblePublisher = publisherRepository.findById(publisherId);
 
         if(possiblePublisher.isPresent() && possibleBook.isPresent()) {
+            //TODO previous publisher
             possiblePublisher.get().getPublishedBooks().add(possibleBook.get());
             possibleBook.get().setPublisher(possiblePublisher.get());
             return bookAssembler.toDto(bookRepository.save(possibleBook.get()));
